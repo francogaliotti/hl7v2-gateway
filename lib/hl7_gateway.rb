@@ -3,3 +3,4 @@
 require_relative 'hl7_gateway/version'
 require_relative 'hl7_gateway/errors'
 require_relative 'hl7_gateway/config'
+require_relative 'hl7_gateway/mllp'
