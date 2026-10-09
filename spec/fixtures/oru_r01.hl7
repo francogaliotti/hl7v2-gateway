@@ -1,0 +1,10 @@
+MSH|^~\&|LABSYS|CITY-LAB|EHR|MAIN-CAMPUS|20261003101500||ORU^R01^ORU_R01|MSG00042|P|2.5|||AL|NE||UNICODE UTF-8
+PID|1||MRN1001^^^MAIN-CAMPUS^MR~NAT778^^^GOV^NI||ANDERSEN^MARIE^L||19850614|F|||12 Elm St\T\Co^^Oslo^^0150~PO Box 9^^Bergen^^5003||555-0101~555-0102
+PV1|1|O|CLINIC-A
+ORC|RE|ORD-77|FILL-88
+OBR|1|ORD-77|FILL-88|CBC^Complete blood count^LOCAL|||20261003093000
+OBX|1|NM|718-7^Hemoglobin^LN||13.2|g/dL|12.0-15.5|N|||F
+OBX|2|ST|NOTE^Technician note^LOCAL||Sample slightly hemolysed\.br\Re-check advised|||||F
+NTE|1||Reviewed by Dr. Okoye
+NTE|2||Call back if value changes
+ZXT|custom|a^b&c
