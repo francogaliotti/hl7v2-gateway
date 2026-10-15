@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Converts an HL7 v2 message to its JSON document. Handy for seeing exactly what the
+# upstream API will receive.
+#
+#   bin/hl7-to-json examples/messages/bmi_request.hl7
+#   cat message.hl7 | bin/hl7-to-json --compact
+
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+require 'hl7_gateway'
+require 'json'
+require 'optparse'
+
+compact = false
+parser = OptionParser.new do |opts|
+  opts.banner = 'Usage: hl7-to-json [--compact] [FILE]'
+  opts.on('--compact', 'Print JSON on a single line') { compact = true }
+  opts.on('-h', '--help') do
+    puts opts
+    exit
+  end
+end
+parser.parse!
+
+begin
+  input = ARGV.first && ARGV.first != '-' ? File.binread(ARGV.first) : $stdin.binmode.read
+  document = Hl7Gateway::Decoder.call(input)
+  puts compact ? JSON.generate(document) : JSON.pretty_generate(document)
+rescue Hl7Gateway::Error, SystemCallError => e
+  abort "hl7-to-json: #{e.message}"
+end

@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Starts the MLLP listener. Configuration comes from the environment (see README).
+#
+#   UPSTREAM_API_URL=http://localhost:4567/api/messages bin/hl7-gateway
+
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+require 'hl7_gateway'
+require 'logger'
+require 'time'
+
+if ARGV.include?('-h') || ARGV.include?('--help')
+  puts <<~HELP
+    Usage: UPSTREAM_API_URL=<url> bin/hl7-gateway
+
+    Environment: UPSTREAM_API_URL (required), UPSTREAM_API_TOKEN, UPSTREAM_API_TIMEOUT,
+                 HL7_HOST, HL7_PORT, HL7_SENDING_APPLICATION, HL7_SENDING_FACILITY,
+                 HL7_IDLE_TIMEOUT, HL7_MAX_MESSAGE_BYTES, LOG_LEVEL
+  HELP
+  exit
+end
+
+begin
+  config = Hl7Gateway::Config.from_env
+rescue Hl7Gateway::ConfigError => e
+  warn "Configuration error: #{e.message}"
+  exit 1
+end
+
+$stdout.sync = true
+logger = Logger.new($stdout)
+logger.level = Logger.const_get(config.log_level.upcase)
+logger.formatter = proc { |severity, time, _progname, message| "#{time.utc.iso8601} #{severity.ljust(5)} #{message}\n" }
+
+processor = Hl7Gateway::Processor.new(client: Hl7Gateway::UpstreamClient.new(config), config: config, logger: logger)
+server = Hl7Gateway::Server.new(
+  processor: processor, host: config.host, port: config.port, idle_timeout: config.idle_timeout,
+  max_message_bytes: config.max_message_bytes, logger: logger
+)
+
+# Signal handlers cannot take locks (Logger, Mutex), so they only wake up the main thread.
+signals = Queue.new
+%w[INT TERM].each { |name| trap(name) { signals << name } }
+
+begin
+  server.start
+rescue SystemCallError => e
+  warn "Cannot listen on #{config.host}:#{config.port}: #{e.message}"
+  exit 1
+end
+logger.info("Forwarding messages to #{config.upstream_url}")
+
+logger.info("Received SIG#{signals.pop}, shutting down")
+server.stop

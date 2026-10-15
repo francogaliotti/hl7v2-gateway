@@ -16,6 +16,8 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 3.1'
 
   spec.files = Dir['lib/**/*.rb', 'bin/*', 'README.md', 'LICENSE']
+  spec.bindir = 'bin'
+  spec.executables = %w[hl7-gateway hl7-send hl7-to-json json-to-hl7]
   spec.require_paths = ['lib']
 
   spec.add_dependency 'ruby-hl7', '~> 1.4'
