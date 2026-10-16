@@ -1,0 +1,57 @@
+AllCops:
+  TargetRubyVersion: 3.1
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+
+Layout/LineLength:
+  Max: 140
+
+Metrics/ParameterLists:
+  CountKeywordArgs: false
+
+Naming/VariableNumber:
+  CheckSymbols: false
+
+Metrics/MethodLength:
+  Max: 25
+
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/ModuleLength:
+  Max: 200
+  Exclude:
+    - 'lib/hl7_gateway/schema.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - '*.gemspec'
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/WordArray:
+  Enabled: false
+
+Naming/MethodParameterName:
+  AllowedNames: [e, io, id]
+
+Lint/ConstantDefinitionInBlock:
+  Exclude:
+    - 'spec/**/*'

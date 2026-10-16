@@ -12,3 +12,7 @@ end
 group :examples do
   gem 'webrick', '~> 1.9'
 end
+
+group :development do
+  gem 'rubocop', '~> 1.79', require: false
+end
