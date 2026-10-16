@@ -8,3 +8,7 @@ group :development, :test do
   gem 'rspec', '~> 3.13'
   gem 'webmock', '~> 3.25'
 end
+
+group :examples do
+  gem 'webrick', '~> 1.9'
+end
