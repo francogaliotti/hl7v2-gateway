@@ -237,6 +237,21 @@ lib/hl7_gateway/
 examples/              mock API and sample messages
 ```
 
+## Contributing
+
+Contributions are very welcome, and **any pull request is appreciated**: bug fixes, new
+segment names in `Schema`, better docs, extra tests, or ideas for making the gateway more
+useful. If you are unsure whether something fits, open an issue first and let's talk.
+
+1. Fork the repository and create a branch (`git checkout -b my-change`).
+2. Make your change, with specs that cover it.
+3. Run `bundle exec rspec` and `bundle exec rubocop`; both should pass.
+4. Open a pull request describing what changed and why.
+
+New to HL7 v2? Small, well-scoped improvements are a great way in: for example naming the
+fields of another segment in `lib/hl7_gateway/schema.rb`, or adding a sample message to
+`examples/messages`.
+
 ## License
 
 MIT © Franco Galiotti
