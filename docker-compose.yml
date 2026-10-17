@@ -1,0 +1,22 @@
+# Gateway + example API, wired together:  docker compose up --build
+# Then send a message:  bin/hl7-send examples/messages/bmi_request.hl7
+services:
+  api:
+    image: ruby:3.2-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      BUNDLE_WITHOUT: development:test
+      PORT: "4567"
+    command: sh -c "bundle install && ruby examples/mock_api.rb"
+
+  gateway:
+    build: .
+    depends_on:
+      - api
+    environment:
+      UPSTREAM_API_URL: http://api:4567/api/messages
+      LOG_LEVEL: info
+    ports:
+      - "2575:2575"
