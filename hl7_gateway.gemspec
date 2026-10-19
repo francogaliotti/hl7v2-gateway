@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
                      'HTTP API and converts the JSON answer back into an HL7 v2 response.'
   spec.homepage = 'https://github.com/francogaliotti/hl7v2-gateway'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 3.1'
+  spec.required_ruby_version = '>= 3.2'
 
   spec.files = Dir['lib/**/*.rb', 'bin/*', 'README.md', 'LICENSE']
   spec.bindir = 'bin'

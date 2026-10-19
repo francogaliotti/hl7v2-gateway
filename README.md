@@ -22,7 +22,7 @@ Built on [`ruby-hl7`](https://github.com/ruby-hl7/ruby-hl7) for segment parsing 
 
 ## Quick start
 
-Requires Ruby 3.1+.
+Requires Ruby 3.2+.
 
 ```bash
 bundle install
