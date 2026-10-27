@@ -10,9 +10,14 @@ require 'hl7_gateway'
 require 'logger'
 require 'time'
 
+if ARGV.include?('-v') || ARGV.include?('--version')
+  puts "hl7-gateway #{Hl7Gateway::VERSION}"
+  exit
+end
+
 if ARGV.include?('-h') || ARGV.include?('--help')
   puts <<~HELP
-    Usage: UPSTREAM_API_URL=<url> bin/hl7-gateway
+    Usage: UPSTREAM_API_URL=<url> bin/hl7-gateway [-h | -v]
 
     Environment: UPSTREAM_API_URL (required), UPSTREAM_API_TOKEN, UPSTREAM_API_TIMEOUT,
                  HL7_HOST, HL7_PORT, HL7_SENDING_APPLICATION, HL7_SENDING_FACILITY,
@@ -49,6 +54,7 @@ rescue SystemCallError => e
   warn "Cannot listen on #{config.host}:#{config.port}: #{e.message}"
   exit 1
 end
+logger.info("hl7_gateway #{Hl7Gateway::VERSION}")
 logger.info("Forwarding messages to #{config.upstream_url}")
 
 logger.info("Received SIG#{signals.pop}, shutting down")

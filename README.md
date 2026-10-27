@@ -237,6 +237,21 @@ lib/hl7_gateway/
 examples/              mock API and sample messages
 ```
 
+## Versioning
+
+This project follows [Semantic Versioning](https://semver.org/). The current version lives in
+[`lib/hl7_gateway/version.rb`](lib/hl7_gateway/version.rb) and every release is tagged `vX.Y.Z`;
+see the [changelog](CHANGELOG.md) for what changed.
+
+The public interface is: the JSON document format, the contract expected from the upstream API,
+the environment variables and the command line tools. Internal classes are not covered.
+
+While the version is `0.x` that interface may still change between minor releases (`0.1` → `0.2`);
+patch releases (`0.1.0` → `0.1.1`) only contain fixes. `1.0.0` will mark the point where it is
+declared stable.
+
+Check the version you are running with `bin/hl7-gateway --version`.
+
 ## Contributing
 
 Contributions are very welcome, and **any pull request is appreciated**: bug fixes, new

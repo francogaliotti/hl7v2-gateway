@@ -68,11 +68,29 @@ RSpec.describe 'command line tools' do
       expect(err).to include('UPSTREAM_API_URL is required')
     end
 
+    it 'prints its version' do
+      out, _err, status = run_tool('hl7-gateway', '--version')
+
+      expect(status).to be_success
+      expect(out.strip).to eq("hl7-gateway #{Hl7Gateway::VERSION}")
+    end
+
     it 'prints its usage' do
       out, _err, status = run_tool('hl7-gateway', '--help')
 
       expect(status).to be_success
       expect(out).to include('UPSTREAM_API_URL')
+    end
+  end
+
+  describe 'the other tools' do
+    %w[hl7-send hl7-to-json json-to-hl7].each do |tool|
+      it "#{tool} prints the version with --version" do
+        out, _err, status = run_tool(tool, '--version')
+
+        expect(status).to be_success
+        expect(out).to include(Hl7Gateway::VERSION)
+      end
     end
   end
 

@@ -14,6 +14,7 @@ require 'optparse'
 separator = "\n"
 parser = OptionParser.new do |opts|
   opts.banner = 'Usage: json-to-hl7 [--cr] [FILE]'
+  opts.version = Hl7Gateway::VERSION
   opts.on('--cr', 'Separate segments with <CR> instead of newlines') { separator = "\r" }
   opts.on('-h', '--help') do
     puts opts

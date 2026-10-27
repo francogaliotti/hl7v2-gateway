@@ -15,11 +15,12 @@ Gem::Specification.new do |spec|
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.2'
 
-  spec.files = Dir['lib/**/*.rb', 'bin/*', 'README.md', 'LICENSE']
+  spec.files = Dir['lib/**/*.rb', 'bin/*', 'README.md', 'CHANGELOG.md', 'LICENSE']
   spec.bindir = 'bin'
   spec.executables = %w[hl7-gateway hl7-send hl7-to-json json-to-hl7]
   spec.require_paths = ['lib']
 
   spec.add_dependency 'ruby-hl7', '~> 1.4'
+  spec.metadata['changelog_uri'] = "#{spec.homepage}/blob/main/CHANGELOG.md"
   spec.metadata['rubygems_mfa_required'] = 'true'
 end

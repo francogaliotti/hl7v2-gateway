@@ -15,6 +15,7 @@ require 'optparse'
 compact = false
 parser = OptionParser.new do |opts|
   opts.banner = 'Usage: hl7-to-json [--compact] [FILE]'
+  opts.version = Hl7Gateway::VERSION
   opts.on('--compact', 'Print JSON on a single line') { compact = true }
   opts.on('-h', '--help') do
     puts opts
